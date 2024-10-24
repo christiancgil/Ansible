@@ -6,7 +6,8 @@
       ansible.builtin.debug:
         msg: "Bienvenido al mundo de Ansible"
     
-    - name: Upgrade RHEL Family OS packages
-      ansible.builtin.yum:
-        name: '*'
-        state: latest  
+- name: Upgrade all packages, excluding kernel & foo related packages
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
+    exclude: kernel*,foo*
