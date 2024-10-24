@@ -6,7 +6,12 @@
       ansible.builtin.debug:
         msg: "Bienvenido al mundo de Ansible"
     
+    - name: "Will check and start patching on linux servers"
+      fail: msg='{{ inventory_hostname }} have running Application. Please stop application and then proceed with patch.'
+      when: application_process_check.stdout == "process is running"
+
     - name: "Applying patches to the server"
       yum: name=kernel state=latest
+      when: application_process_check.stdout
       register: patch_update
       become: true
