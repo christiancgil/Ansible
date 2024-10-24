@@ -11,6 +11,6 @@
       register: patch_update
       become: true
 
-    - name: Reiniciar solo si se hizo un cambio
+    - name: "Reiniciar solo si se hizo un cambio"
       ansible.builtin.reboot:
       when: patch_update is changed
