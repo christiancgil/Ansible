@@ -9,3 +9,4 @@
     - name: "Applying patches to the server"
       yum: name=kernel state=latest
       register: patch_update
+      become: true
