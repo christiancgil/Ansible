@@ -1,5 +1,5 @@
 - name: Compliance de Servidor Linux
-  hosts: all
+  hosts: web
   become: true
   gather_facts: true
  
