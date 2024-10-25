@@ -57,12 +57,12 @@
     - name: Aplicar permisos correctos en /etc/passwd y /etc/group
       file:
         path: "{{ item }}"
-        mode: "0644"
+        mode: "0600"
         state: file
       loop:
         - /etc/passwd
         - /etc/group
-            
+
     - name: Reporte de compliance final
       debug:
         msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
