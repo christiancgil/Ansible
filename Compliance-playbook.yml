@@ -35,6 +35,7 @@
     - name: Mensaja linea Edad Días
       ansible.builtin.command:
         cmd: grep PASS_MAX_DAYS /etc/login.defs
+      changed_when: false
 
     - name: Reporte de compliance final
       debug:
