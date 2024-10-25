@@ -37,10 +37,6 @@
         cmd: grep PASS_MAX_DAYS /etc/login.defs
       changed_when: false
 
-    - name: Reporte de compliance final
-      debug:
-        msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
-
     - name: Disable SSH Root Login Asegurarse de que el root sólo pueda hacer login desde la consola
       block:
       debug:
@@ -55,5 +51,9 @@
       check_mode: true
       changed_when: false
       register: dupes
+      debug:
+        msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
+
+    - name: Reporte de compliance final
       debug:
         msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
