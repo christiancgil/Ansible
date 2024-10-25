@@ -28,7 +28,7 @@
         state: present
       register: reemplazo
 
-    - name: Dame un mensaje
+    - name: Dame un mensaje de consola
       ansible.builtin.debug:
         var: reemplazo
 
