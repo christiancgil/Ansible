@@ -53,6 +53,15 @@
         name: rsyslog
         state: started
         enabled: true
+    
+    - name: Aplicar permisos correctos en /etc/passwd y /etc/group
+      file:
+        path: "{{ item }}"
+        mode: "0644"
+        state: file
+      loop:
+        - /etc/passwd
+        - /etc/group
             
     - name: Reporte de compliance final
       debug:
