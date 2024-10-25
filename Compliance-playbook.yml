@@ -47,7 +47,13 @@
         policy: targeted
         state: enforcing
       when: ansible_facts['os_family'] == 'RedHat'
-    
+
+    - name: Configurar logs del sistema con rsyslog
+      service:
+        name: rsyslog
+        state: started
+        enabled: true
+            
     - name: Reporte de compliance final
       debug:
         msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
