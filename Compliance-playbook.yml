@@ -39,9 +39,7 @@
 
     - name: Disable SSH Root Login Asegurarse de que el root sólo pueda hacer login desde la consola
       block:
-      debug:
-        msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
-
+      
     - name: Check for duplicate values
       lineinfile:
         path: /etc/ssh/sshd_config
