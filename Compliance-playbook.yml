@@ -40,3 +40,17 @@
     - name: Reporte de compliance final
       debug:
         msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
+
+    - name: Disable SSH Root Login Asegurarse de que el root sólo pueda hacer login desde la consola
+      block:
+      - name: Check for duplicate values
+        lineinfile:
+          path: /etc/ssh/sshd_config
+          create: true
+          regexp: (?i)^\s*PermitRootLogin\s+
+          state: absent
+        check_mode: true
+        changed_when: false
+        register: dupes
+        debug:
+          msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
