@@ -1,1 +1,32 @@
-
+- name: Compliance de Servidor Linux
+  hosts: all
+  become: true
+  gather_facts: true
+ 
+  vars:
+    allowed_users:
+      - root
+      - admin
+    password_min_length: 12
+    password_complexity: "YES"
+    password_max_age: 90
+    allowed_services:
+      - sshd
+      - chronyd
+      - crond
+    required_packages:
+      - audit
+      - rsyslog
+ 
+  tasks:
+ 
+    - name: Verificar edad máxima de contraseñas
+      lineinfile:
+        path: /etc/login.defs
+        regexp: "^PASS_MAX_DAYS"
+        line: "PASS_MAX_DAYS {{ password_max_age }}"
+        state: present
+  
+    - name: Reporte de compliance final
+      debug:
+        msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
