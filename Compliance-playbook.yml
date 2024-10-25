@@ -12,8 +12,6 @@
     password_max_age: 100
     allowed_services:
       - sshd
-      - chronyd
-      - crond
     required_packages:
       - audit
       - rsyslog
