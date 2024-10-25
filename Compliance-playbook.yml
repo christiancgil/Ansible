@@ -37,6 +37,10 @@
         cmd: grep PASS_MAX_DAYS /etc/login.defs
       changed_when: false
 
+    - name: Validar usuarios permitidos en /etc/passwd
+      shell: "cut -d: -f1 /etc/passwd"
+      register: passwd_users
+      changed_when: false
     
     - name: Reporte de compliance final
       debug:
