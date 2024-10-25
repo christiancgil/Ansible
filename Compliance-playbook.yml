@@ -41,6 +41,12 @@
       shell: "cut -d: -f1 /etc/passwd"
       register: passwd_users
       changed_when: false
+
+    - name: Verificar configuración de SELinux (solo para RHEL/CentOS)
+      selinux:
+        policy: targeted
+        state: enforcing
+      when: ansible_facts['os_family'] == 'RedHat'
     
     - name: Reporte de compliance final
       debug:
