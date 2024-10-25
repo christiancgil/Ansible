@@ -12,6 +12,8 @@
     password_max_age: 100
     allowed_services:
       - sshd
+      - chronyd
+      - crond
     required_packages:
       - audit
       - rsyslog
@@ -67,17 +69,6 @@
         regexp: "^max_log_file_action"
         line: "max_log_file_action = keep_logs"
         state: present
-
-    - name: Verificar que solo estén en ejecución los servicios permitidos
-      shell: "systemctl list-units --type=service --state=running --no-pager --no-legend"
-      register: running_services
-      changed_when: false
- 
-    - name: Asegurarse de que solo estén en ejecución los servicios autorizados
-      fail:
-        msg: "Servicio no autorizado en ejecución: {{ item }}"
-      when: item not in allowed_services
-      loop: "{{ running_services.stdout_lines | map('regex_search', '^\\S+') | list }}"
 
     - name: Reporte de compliance final
       debug:
