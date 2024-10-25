@@ -26,7 +26,12 @@
         regexp: "^PASS_MAX_DAYS"
         line: "PASS_MAX_DAYS {{ password_max_age }}"
         state: present
-  
+      register: reemplazo
+
+    - name: Dame un mensaje
+      ansible.builtin.debug:
+        var: reemplazo
+
     - name: Reporte de compliance final
       debug:
         msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
