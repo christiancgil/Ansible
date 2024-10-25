@@ -70,6 +70,17 @@
         line: "max_log_file_action = keep_logs"
         state: present
 
+    - name: Verificar que solo estén en ejecución los servicios permitidos
+      shell: "systemctl list-units --type=service --state=running --no-pager --no-legend"
+      register: running_services
+      changed_when: false
+ 
+    - name: Asegurarse de que solo estén en ejecución los servicios autorizados
+      fail:
+        msg: "Servicio no autorizado en ejecución: {{ item }}"
+      when: item not in allowed_services
+      loop: "{{ running_services.stdout_lines | map('regex_search', '^\\S+') | list }}"
+
     - name: Reporte de compliance final
       debug:
         msg: "Verificación de compliance completada en el servidor {{ inventory_hostname }}. Por favor, revisa los registros de tareas fallidas para conocer más detalles."
