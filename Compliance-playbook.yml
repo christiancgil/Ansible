@@ -62,6 +62,13 @@
       loop:
         - /etc/passwd
         - /etc/group
+    
+    - name: Configuración de auditoría de seguridad
+      lineinfile:
+        path: /etc/audit/auditd.conf
+        regexp: "^max_log_file_action"
+        line: "max_log_file_action = keep_logs"
+        state: present
 
     - name: Reporte de compliance final
       debug:
